@@ -176,7 +176,7 @@ def create_list():
 
 def import_list():
 
- host='10.255.18.25'
+ host='127.0.0.1'
  pdata={'credentials':{'username':'admin','password':'a10'}}
  hdr={'content-type': 'application/json'}
  prot='https://'
@@ -222,7 +222,10 @@ def import_list():
  # End
 
 now=datetime.datetime.now()
-if now.hour == 10 and 0 < now.minute < 30:
+hour='11'
+minm='0'
+maxm='4'
+if now.hour == hour and minm < now.minute < maxm:
  create_list()
  import_list()
 else:
