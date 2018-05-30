@@ -14,7 +14,7 @@ from itertools import chain
 
 def create_list():
  url="https://endpoints.office.com/endpoints/o365worldwide?clientrequestid=b10c5ed1-bad1-445f-b386-b919946339a7"
- r=requests.get(url, verify=False)
+ r=requests.get(url, verify=False, timeout=3)
  l=r.json()
  
  url_keys=['allowUrls', 'defaultUrls']
@@ -176,12 +176,12 @@ def create_list():
 
 def import_list():
 
- host='10.255.16.27'
+ host='10.255.18.25'
  pdata={'credentials':{'username':'admin','password':'a10'}}
  hdr={'content-type': 'application/json'}
  prot='https://'
  url =prot+host+'/axapi/v3/auth'
- r=requests.post(url, json=pdata, headers=hdr, verify=False)
+ r=requests.post(url, json=pdata, headers=hdr, verify=False, timeout=3)
  #print(r)
  d=r.json()
  #print(d)
@@ -190,7 +190,7 @@ def import_list():
  
  part='shared'
  call_url=prot+host+'/axapi/v3/active-partition/'+part
- call=requests.post(call_url, headers=hdr, verify=False)
+ call=requests.post(call_url, headers=hdr, verify=False, timeout=3)
  
  hdr2={}
  hdr2['authorization']=sign
@@ -213,16 +213,16 @@ def import_list():
     'json': (type,jsn,'application/octet-stream'), 
     'file': (fname,f,'application/octet-stream')
    }
-  call=requests.post(call_url, headers=hdr2, files=files, verify=False)
+  call=requests.post(call_url, headers=hdr2, files=files, verify=False, timeout=3)
   #time.sleep(1)
   
  logout_url = prot+host+'/axapi/v3/logoff'
- logout = requests.post(logout_url, headers=hdr, verify=False)
+ logout = requests.post(logout_url, headers=hdr, verify=False, timeout=3)
  #print(logout.status_code, logout.content)
  # End
 
 now=datetime.datetime.now()
-if now.hour == 20 and 6 < now.minute < 9:
+if now.hour == 10 and 0 < now.minute < 30:
  create_list()
  import_list()
 else:
