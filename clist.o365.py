@@ -222,9 +222,9 @@ def import_list():
  # End
 
 now=datetime.datetime.now()
-hour='11'
-minm='0'
-maxm='4'
+hour=11
+minm=20
+maxm=24
 if now.hour == hour and minm < now.minute < maxm:
  create_list()
  import_list()
