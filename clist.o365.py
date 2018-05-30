@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
-#import os
+import os
 #os.environ['NO_PROXY'] = 'endpoints.office.com'
-#os.chdir('/a10data/guest')
+os.chdir('/a10data/guest')
 #wdir=os.getcwd()
 #import time
 
@@ -222,11 +222,12 @@ def import_list():
  # End
 
 now=datetime.datetime.now()
-hour=11
-minm=20
-maxm=24
+hour=13
+minm=10
+maxm=20
 if now.hour == hour and minm < now.minute < maxm:
+ print(str(now.hour)+str(now.minute)+' GO')
  create_list()
  import_list()
 else:
- print('not in the time range')
+ print(str(now.hour)+str(now.minute)+' not now')
