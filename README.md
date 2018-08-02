@@ -90,7 +90,7 @@ show health monitor | include o365
 show health stat | include o365
 ```
 
-- edit script (for 4.1.4 only)
+- edit script
 ```
 from GUI
 ADC > Health Monitors > External Programs > clist.o365.py > Update
