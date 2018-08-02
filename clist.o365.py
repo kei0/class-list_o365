@@ -2,9 +2,8 @@
 
 import os
 #os.environ['NO_PROXY'] = 'endpoints.office.com'
-os.chdir('/a10data/guest')
-#wdir=os.getcwd()
-#import time
+os.chdir('/a10data/tmp')
+os.umask(0o111)
 
 import datetime
 import requests
@@ -13,11 +12,11 @@ import re
 from itertools import chain
 
 def create_list():
- url="https://endpoints.office.com/endpoints/o365worldwide?clientrequestid=b10c5ed1-bad1-445f-b386-b919946339a7"
+ url="https://endpoints.office.com/endpoints/worldwide?clientrequestid=b10c5ed1-bad1-445f-b386-b919946339a7"
  r=requests.get(url, verify=False, timeout=3)
  l=r.json()
  
- url_keys=['allowUrls', 'defaultUrls']
+ url_keys=['urls']
  
  l_url=[d.get(url_key) for url_key in url_keys for d in l if d.get(url_key) and not d['expressRoute']]
  l_url=list(chain.from_iterable(l_url))
@@ -56,7 +55,7 @@ def create_list():
    u=match+u
    f.write(u)
    f.write('\n')
-  
+
  with open(fname_e,'w') as f:
   f.write(fheader_e)
   f.write('\n')
@@ -182,9 +181,7 @@ def import_list():
  prot='https://'
  url =prot+host+'/axapi/v3/auth'
  r=requests.post(url, json=pdata, headers=hdr, verify=False, timeout=3)
- #print(r)
  d=r.json()
- #print(d)
  sign ='A10 '+d['authresponse']['signature']
  hdr['authorization']=sign
  
@@ -196,7 +193,7 @@ def import_list():
  hdr2['authorization']=sign
  call_url=prot+host+'/axapi/v3/file/class-list'
  
- types=['url','urlER','urlDUP','ipv4','ipv4ER','ipv4DUP']
+ types=['url','urlER','urlDUP','ipv4','ipv4ER','ipv4DUP','ipv6','ipv6ER','ipv6DUP']
  for type in types:
   jsn='''{{
   "class-list":{{
@@ -214,17 +211,14 @@ def import_list():
     'file': (fname,f,'application/octet-stream')
    }
   call=requests.post(call_url, headers=hdr2, files=files, verify=False, timeout=3)
-  #time.sleep(1)
   
  logout_url = prot+host+'/axapi/v3/logoff'
  logout = requests.post(logout_url, headers=hdr, verify=False, timeout=3)
- #print(logout.status_code, logout.content)
- # End
 
 now=datetime.datetime.now()
-hour=13
-minm=10
-maxm=20
+hour=01
+minm=01
+maxm=10
 if now.hour == hour and minm < now.minute < maxm:
  print(str(now.hour)+str(now.minute)+' GO')
  create_list()
