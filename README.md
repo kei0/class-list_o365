@@ -1,4 +1,10 @@
 # class-list_o365
+## 概要
+- Office 365のURLソースより、url/ipv4の情報をすべて抽出。
+- url/ipv4それぞれについてExpress Routeの真/偽に応じてclass-list化。
+- 同じurl/ipv4がExpress Routeの真/偽どちらにも属する場合は、別のclass-listを設ける。
+- urlがアスタリスク(\*)を含む場合はアスタリスク以前を削除。 \*.x.y.z → .x.y.z
+
 ## Office 365 URL ソース
 [Office 365 Endpoints for proxy servers](https://endpoints.office.com/endpoints/worldwide?clientrequestid=b10c5ed1-bad1-445f-b386-b919946339a7)
 
