@@ -1,39 +1,39 @@
 # class-list_o365
-## origin (json file @MS)
+## Office 365 URL ソース
 [Office 365 Endpoints for proxy servers](https://endpoints.office.com/endpoints/worldwide?clientrequestid=b10c5ed1-bad1-445f-b386-b919946339a7)
 
-## class-lists generated
+## 作成される class-list
 - o365-url 
-  - URLs * ER False
+  - url情報 * Express Route偽
 - o365-urlER
-  - URLs * ER True
+  - url情報 * Express Route真
 - o365-urlDUP
-  - URLs * ER True/False Duplicate
+  - url情報 * Express Route真/偽 双方に存在
 - o365-ipv4
-  - IPv4 * ER False
+  - IPv4情報 * Express Route偽
 - o365-ipv4ER
-  - IPv4 * ER True
+  - IPv4情報 * Express Route真
 - o365-ipv4DUP
-  - IPv4 * ER True/False Duplicate
+  - IPv4情報 * Express Route真/偽 双方に存在
 
-## versions tested
+## 動作確認済み ACOSバージョン
 ```
 4.1.4-p1, 4.1.1-p8
 ```
 
-## prerequisites (edit the script as needed) 
-- default username, password
+## Step 1. ダウンロードしたサンプルスクリプトを編集 (必要に応じて） 
+- デフォルトユーザ名とパスワード（aXAPI実行ユーザなど環境に応じて変更）
 ```
 pdata={'credentials':{'username':'admin','password':'a10'}}
 ```
-- update schedule
+- 実行スケジュール（下記の例では13時10−20分の間であれば実行）
 ```
 hour=13
 minm=10
 maxm=20
 ```
 
-## prerequisites (internet connection)
+## Step 2. ACOSのインターネット接続設定 (経路と名前解決)
 ```
 ! eg. data interface
 !
@@ -43,12 +43,12 @@ ip route 0.0.0.0 /0 <IP_ADDRESS>
 !
 ```
 
-## import script
+## Step 3. ACOSにスクリプトをインポート
 ```
 import health-external clist.o365.py overwrite use-mgmt-port scp://user:password@<HOSTNAME or IP_ADDRESS>/<path>/clist.o365.py
 ```
 
-## execute script
+## Step 4. ACOSでスクリプトを実行（External Health Monitorの利用）
 ```
 !
 health monitor o365 
@@ -61,42 +61,42 @@ slb server me 127.0.0.1
 !
 ```
 
-## run as non-root (for 4.1.4 only)
+## Option. non-rootでの実行 (4.1.4のみ)
 ```
 health external privileged disable 
 ```
 
-## check
-- local clock
+## 確認事項
+- local clock（スクリプトに定義されている実行時間と筐体時間の比較）
 ```
 show clock
 ```
 
-- file
+- file（スクリプトファイルの表示）
 ```
 show health external clist.o365.py  
 ```
 
-- log
+- log（実行ログの確認）
 ```
 show health external-log
 show log
 show audit
 ```
 
-- config, stat
+- config, stat（コンフィグ・ステータスの確認）
 ```
 show health monitor | include o365         
 show health stat | include o365
 ```
 
-- edit script
+- edit script（スクリプトの編集）
 ```
 from GUI
 ADC > Health Monitors > External Programs > clist.o365.py > Update
 ```
 
-## bind 
+## Step 5. ファイルの生成を確認後、テンプレートに当てはめる
 ```
 ! policy config sample
 !
