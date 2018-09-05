@@ -4,7 +4,7 @@
 - url/ipそれぞれについて"expressRoute"のtrue/falseに応じてclass-list化。
 - 同じurl/ipが"expressRoute"のtrue/falseどちらにも属する場合は、別のclass-listを設ける。
 - urlがアスタリスク(\*)を含む場合はアスタリスク以前を削除。 \*.x.y.z → .x.y.z
-- Class-list作成以外の基本的な動作概念については以前の「Office365用class-list自動化Shellスクリプト」を踏襲している。
+- Class-list作成以外の基本的な動作概念については以前の「Office365用class-list自動化Shellスクリプト」を踏襲しているので、詳細はそちらを参照。
 
 ## Office 365 IP Address and URL
 [Office 365 Endpoints for proxy servers](https://endpoints.office.com/endpoints/worldwide?clientrequestid=b10c5ed1-bad1-445f-b386-b919946339a7)
