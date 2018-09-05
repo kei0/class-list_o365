@@ -1,27 +1,34 @@
 # class-list_o365
 ## 概要
-- Office 365のURLソースより、url/ipv4の情報をすべて抽出。
-- url/ipv4それぞれについてExpress Routeの真/偽に応じてclass-list化。
-- 同じurl/ipv4がExpress Routeの真/偽どちらにも属する場合は、別のclass-listを設ける。
+- "Office 365 IP Address and URL Web service"より、"urls"および"ips"の情報をすべて抽出。
+- url/ipそれぞれについて"expressRoute"のtrue/falseに応じてclass-list化。
+- 同じurl/ipが"expressRoute"のtrue/falseどちらにも属する場合は、別のclass-listを設ける。
 - urlがアスタリスク(\*)を含む場合はアスタリスク以前を削除。 \*.x.y.z → .x.y.z
+- Class-list作成以外の基本的な動作概念については以前の「Office365用class-list自動化Shellスクリプト」を踏襲している。
 
-## Office 365 URL ソース
+## Office 365 IP Address and URL
 [Office 365 Endpoints for proxy servers](https://endpoints.office.com/endpoints/worldwide?clientrequestid=b10c5ed1-bad1-445f-b386-b919946339a7)
 
 ## 作成される class-list
 - o365-url 
-  - url情報 * Express Route偽
+  - url * expressRoute false
 - o365-urlER
-  - url情報 * Express Route真
+  - url * expressRoute true
 - o365-urlDUP
-  - url情報 * Express Route真/偽 双方に存在
+  - url * expressRoute 双方に存在 (DUPlicate)
 - o365-ipv4
-  - IPv4情報 * Express Route偽
+  - ip(v4) * expressRoute false
 - o365-ipv4ER
-  - IPv4情報 * Express Route真
+  - ip(v4) * expressRoute true
 - o365-ipv4DUP
-  - IPv4情報 * Express Route真/偽 双方に存在
-
+  - ip(v4) * expressRoute 双方に存在 (DUPlicate)
+- o365-ipv6
+  - ip(v6) * expressRoute false
+- o365-ipv4ER
+  - ip(v6) * expressRoute true
+- o365-ipv6DUP
+  - ip(v6) * expressRoute 双方に存在 (DUPlicate)
+  
 ## 動作確認済み ACOSバージョン
 ```
 4.1.4-p1, 4.1.1-p8
@@ -65,11 +72,6 @@ health monitor o365
 slb server me 127.0.0.1 
   health-check o365 
 !
-```
-
-## Option. non-rootでの実行 (4.1.4のみ)
-```
-health external privileged disable 
 ```
 
 ## 確認事項
