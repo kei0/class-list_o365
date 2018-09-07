@@ -24,7 +24,7 @@
   - ip(v4) * expressRoute 双方に存在 (DUPlicate)
 - o365-ipv6
   - ip(v6) * expressRoute false
-- o365-ipv4ER
+- o365-ipv6ER
   - ip(v6) * expressRoute true
 - o365-ipv6DUP
   - ip(v6) * expressRoute 双方に存在 (DUPlicate)
