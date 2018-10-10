@@ -31,7 +31,7 @@
   
 ## 動作確認済み ACOSバージョン
 ```
-4.1.4-p1, 4.1.1-p8
+4.1.4-p2 （4.1.1-p9では動作しません）
 ```
 
 ## Step 1. ダウンロードしたサンプルスクリプトを編集 (必要に応じて） 
@@ -66,7 +66,8 @@ import health-external clist.o365.py overwrite use-mgmt-port scp://user:password
 !
 health monitor o365 
   retry 1 
-  interval 180 timeout 60 
+  interval 180 timeout 80
+  !上記のinterval/timeoutはこれより短くしません
   method external program clist.o365.py 
 !
 slb server me 127.0.0.1 
