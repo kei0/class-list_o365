@@ -10,6 +10,7 @@ import requests
 import json
 import re
 from itertools import chain
+from time import sleep
 
 def create_list():
  url="https://endpoints.office.com/endpoints/worldwide?clientrequestid=b10c5ed1-bad1-445f-b386-b919946339a7"
@@ -211,6 +212,7 @@ def import_list():
     'file': (fname,f,'application/octet-stream')
    }
   call=requests.post(call_url, headers=hdr2, files=files, verify=False, timeout=3)
+  sleep(5)
   
  logout_url = prot+host+'/axapi/v3/logoff'
  logout = requests.post(logout_url, headers=hdr, verify=False, timeout=3)
