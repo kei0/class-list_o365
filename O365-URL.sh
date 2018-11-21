@@ -29,7 +29,7 @@ readonly CURR_TIME=$(date +%H:%M)
 readonly BEGIN_TIME="00:00"
 readonly END_TIME="23:59"
 
-## exec schedule
+## select ac match type 
 param_check()
 {
   if [ "${AC_MATCH}" == "contains" ] || [ "${AC_MATCH}" == "ends-with" ]; then
@@ -40,6 +40,7 @@ param_check()
   fi
 }
 
+## exec schedule
 time_check()
 {
   if [[ "${CURR_TIME}" < "${BEGIN_TIME}" ]] || [[ "${CURR_TIME}" > "${END_TIME}" ]]; then
@@ -114,9 +115,11 @@ create_list() {
   ## convert the lists to class-list format
   for route_type in EXP DEF DUP; do
    sed -i -e "s/^/${AC_MATCH} /" o365-urls-${route_type}
-   sed -i "1iclass-list o365-urls-${route_type} ac file" o365-urls-${route_type}
+   (echo "class-list o365-urls-${route_type} ac file" ; cat o365-urls-${route_type}) > o365-urls-${route_type}.tmp
+   mv o365-urls-${route_type}.tmp o365-urls-${route_type}
    for key_name in ipv4 ipv6; do
-    sed -i "1iclass-list o365-${key_name}-${route_type} ${key_name} file" o365-${key_name}-${route_type}
+    (echo "class-list o365-${key_name}-${route_type} ${key_name} file" ; cat o365-${key_name}-${route_type}) > o365-${key_name}-${route_type}.tmp
+    mv o365-${key_name}-${route_type}.tmp o365-${key_name}-${route_type} 
    done
   done
    
