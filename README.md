@@ -167,7 +167,6 @@ slb template policy p
       destination class-list o365-ipv4-EXP action drop host priority 4 
       destination class-list o365-ipv4-DEF action drop host priority 5 
       destination class-list o365-ipv4-DUP action drop host priority 6 
-
 !
 
 # ipv6 クラスリストは透過Proxy時に利用可能
