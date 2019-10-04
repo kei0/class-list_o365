@@ -45,7 +45,7 @@ time_check()
 {
   if [[ "${CURR_TIME}" < "${BEGIN_TIME}" ]] || [[ "${CURR_TIME}" > "${END_TIME}" ]]; then
    echo "${CURR_TIME} => NO GO"
-   exit 1
+   exit 0
   else
    echo "${CURR_TIME} => GO" 
   fi
