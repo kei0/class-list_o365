@@ -31,7 +31,7 @@
   
 ## 動作確認済み ACOSバージョン
 ```
-4.1.4-p2、4.1.1-p9
+4.1.4-p2、4.1.1-p9、4.1.4-GR1-p1
 ```
 
 ## Step 1. ダウンロードしたサンプルスクリプトを編集 (必要に応じて） 
@@ -167,6 +167,7 @@ slb template policy p
       destination class-list o365-ipv4-EXP action drop host priority 4 
       destination class-list o365-ipv4-DEF action drop host priority 5 
       destination class-list o365-ipv4-DUP action drop host priority 6 
+
 !
 
 # ipv6 クラスリストは透過Proxy時に利用可能
